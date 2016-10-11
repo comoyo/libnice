@@ -119,7 +119,8 @@ nice_interfaces_get_local_interfaces (void)
 
     if (ifa->ifa_addr == NULL)
       continue;
-
+    if (strstr(ifa->ifa_name, "docker") != NULL)
+      continue;
     if (ifa->ifa_addr->sa_family == AF_INET || ifa->ifa_addr->sa_family == AF_INET6) {
       nice_debug ("Found interface : %s", ifa->ifa_name);
       interfaces = g_list_prepend (interfaces, g_strdup (ifa->ifa_name));
